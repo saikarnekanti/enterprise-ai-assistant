@@ -1,0 +1,8 @@
+.venv/
+__pycache__/
+.DS_Store
+
+
+#.venv/ means igonres the virtual environment directory, which is commonly used in Python projects to manage dependencies
+#__pycache__/ means ignores the directory that contains compiled Python files, which are generated automatically and not needed in version control
+#.DS_Store means ignores the macOS-specific file that stores custom attributes of a folder,
