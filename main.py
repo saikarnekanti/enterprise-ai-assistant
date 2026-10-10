@@ -12,6 +12,11 @@ class User(BaseModel):
     age:int
     is_learning_ai:bool
 
+class UserUpdate(BaseModel):
+    name:str|None=None
+    age:int|None=None
+    is_learning_ai:bool|None=None
+
 users =[
     {
         "name":"Sai",
@@ -50,3 +55,32 @@ def create_user(user: User):
             )
     users.append(user.model_dump())
     return user
+
+@app.patch("/users/{name}")
+def update_user(name: str, user_update: UserUpdate):
+    for user in users:
+        if user["name"].lower() == name.lower():
+            if user_update.name is not None:
+                user["name"] = user_update.name
+            if user_update.age is not None:
+                user["age"] = user_update.age
+            if user_update.is_learning_ai is not None:
+                user["is_learning_ai"] = user_update.is_learning_ai    
+            return user
+    raise HTTPException(
+        status_code=404,
+        detail="User not found" 
+    )
+
+@app.delete("/users/{name}")
+def delete_user(name: str):
+    for user in users:
+        if user["name"].lower() == name.lower():
+            users.remove(user)
+            return {
+                "message" : f"{name} deleted successfully"
+            }
+    raise HTTPException(
+        status_code=404,
+        detail="User not found"
+    )
