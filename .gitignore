@@ -1,6 +1,7 @@
 .venv/
 __pycache__/
 .DS_Store
+users.db
 
 
 #.venv/ means igonres the virtual environment directory, which is commonly used in Python projects to manage dependencies
